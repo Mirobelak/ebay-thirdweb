@@ -55,7 +55,7 @@ function Header({}: Props) {
                 <input type='text' placeholder='Search for anything' className='flex-1 outline-none ' />
             </div>
             <button className='hidden sm:inline bg-blue-600 text-white px-5 md:px-10 py-2 border-2 border-blue-600'>Search</button>
-            <Link href="/">
+            <Link href="/createPage">
             <button className='border-2 border-blue-600 px-5 md:px-10 py-2 text-blue-600 hover:bg-blue-600/50 hover:text-white cursor-pointer'>List Item</button>
             </Link>
         </section>
