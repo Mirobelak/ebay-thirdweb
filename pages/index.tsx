@@ -4,6 +4,7 @@ import Header from '../components/Header'
 import { useActiveListings, useContract,MediaRenderer  } from '@thirdweb-dev/react'
 import { ListingType } from '@thirdweb-dev/sdk'
 import { BanknotesIcon, ClockIcon } from '@heroicons/react/24/outline'
+import Link from 'next/link'
 
 const Home: NextPage = () => {
   const {contract} = useContract(process.env.NEXT_PUBLIC_MARKETPLACE_CONTRACT, "marketplace")
@@ -20,9 +21,11 @@ const Home: NextPage = () => {
       {loadingListings ? (
         <p className='text-center animate-pulse text-blue-500'>Loading...</p>
       ) : (
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-auto">
           {listings?.map((listing) => (
-            <div key={listing.id} className="flex flex-col card hover:scale-105 transition-all duration-150 ease-out">
+            <Link className="flex flex-col card hover:scale-105 transition-all duration-150 ease-out" key={listing.id} href={`/listing/${listing.id}`}>
+            <div >
             <div className='flex-1 flex flex-col pb-2 items-center'>
               <MediaRenderer src={listing.asset.image} className="w-44" />
             </div>
@@ -43,6 +46,7 @@ const Home: NextPage = () => {
               </div>
             </div>
             </div>
+            </Link>
             ))}
         </div>
       )}
