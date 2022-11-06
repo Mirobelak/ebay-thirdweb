@@ -7,7 +7,9 @@ import { ListingType, NATIVE_TOKENS } from '@thirdweb-dev/sdk'
 import CountDown from "react-countdown"
 import network from '../../utils/network'
 import { ethers } from 'ethers'
-
+import toast, {
+    Toaster
+  } from 'react-hot-toast';
 type Props = {}
 
 const ListingPage = (props: Props) => {
@@ -106,13 +108,12 @@ const ListingPage = (props: Props) => {
         }
         await buyNow({buyAmount: 1, type: listing.type, id: listingId}, {
             onSuccess: (data, variables, context) => {
-                alert("NFT bought successfully")
-                console.log("SUCCESS" + data)
+                toast.success('NFT BOUGHT')
                 router.replace('/')
             },
             onError: (error, variables, context) => {
-                alert("Error buying NFT")
-                console.log("ERROR" + error)
+                toast.error('Error buying NFT')
+                
             }
         })
 
@@ -120,6 +121,9 @@ const ListingPage = (props: Props) => {
 
     return (
     <div>
+        <Toaster
+         position="top-center"
+        />
         <Header/>
         <main className='max-w-6xl p-2 flex mx-auto flex-col lg:flex-row space-y-10 space-x-5 pr-10'>
             <div className='p-10 border mx-auto lg:mx-0 max-w-md lg:max-w-xl'>

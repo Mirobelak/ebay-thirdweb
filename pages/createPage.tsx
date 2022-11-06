@@ -4,6 +4,7 @@ import {useAddress, useContract, MediaRenderer, useNetwork, useNetworkMismatch, 
 import {useRouter} from 'next/router'
 import network from '../utils/network'
 import {NFT, NATIVE_TOKENS, NATIVE_TOKEN_ADDRESS} from '@thirdweb-dev/sdk'
+import toast, {Toaster} from 'react-hot-toast'
 
 type Props = {}
 
@@ -33,9 +34,12 @@ const CreatePage = (props: Props) => {
             const {listingType, price} = target.elements
 
             if(listingType.value === "direct") {
-                createDirectListing({assetContractAddress: process.env.NEXT_PUBLIC_COLLECTION_CONTRACT!, tokenId: selectedNFT.metadata.id, currencyContractAddress: NATIVE_TOKEN_ADDRESS, listingDurationInSeconds: 60 * 60 * 24 * 7, quantity: 1, buyoutPricePerToken:price.value,startTimestamp: new Date()}, {onSuccess(data, variables, context) { console.log("SUCCES" + data, variables, context); 
+                createDirectListing({assetContractAddress: process.env.NEXT_PUBLIC_COLLECTION_CONTRACT!, tokenId: selectedNFT.metadata.id, currencyContractAddress: NATIVE_TOKEN_ADDRESS, listingDurationInSeconds: 60 * 60 * 24 * 7, quantity: 1, buyoutPricePerToken:price.value,startTimestamp: new Date()}, {onSuccess(data, variables, context) { console.log("SUCCES" + data, variables, context);
+                toast.success("Listing created successfully") 
                 router.push("/")},
-                onError(error, variables, context) { console.log("ERROR" + error, variables, context);}})
+                onError(error, variables, context)
+                { console.log("ERROR" + error, variables, context) 
+                toast.error("Listing creation failed")}})
             }
             else if(listingType.value === "auction") {
                 createAuctionListing(
@@ -55,6 +59,7 @@ const CreatePage = (props: Props) => {
         } 
     return (
     <div>
+        <Toaster position='top-center'/>
         <Header/>
         <main className='max-w-6xl mx-auto p-2'>
         <h1 className='text-4xl font-bold'>List an Item</h1>

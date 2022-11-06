@@ -3,6 +3,9 @@ import Header from '../components/Header'
 import {useAddress, useContract} from '@thirdweb-dev/react'
 import Image from 'next/image'
 import {useRouter} from 'next/router'
+import toast, {
+    Toaster
+  } from 'react-hot-toast';
 
 type Props = {}
 
@@ -33,8 +36,7 @@ const addItem = (props: Props) => {
             const receipt = tx.receipt
             const tokenId = tx.id
             const nft = await tx.data()
-
-            console.log("receipt", receipt, "tokenId", tokenId, "nft", nft)
+            toast.success("NFT minted successfully")
             router.push(`/`)
         }
         catch (error) {
@@ -44,6 +46,7 @@ const addItem = (props: Props) => {
         
   return (
     <div>
+        <Toaster position='top-center'/>
         <Header/> 
         <main className='max-w-6xl mx-auto p-2'>
             <div className="flex flex-col card">
